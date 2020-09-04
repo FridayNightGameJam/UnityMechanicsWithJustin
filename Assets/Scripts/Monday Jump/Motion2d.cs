@@ -6,8 +6,8 @@ using UnityEngine;
 public class Motion2d : MonoBehaviour
 {
     [Header("Configuration")]
-    [SerializeField] private float RunSpeed = 5;
-    [SerializeField] private float VelocityChange = 3;
+    [SerializeField] private float speed = 5;
+    [SerializeField] private float accellerationTime = 3;
 
     public event Action OnJump;
 
@@ -18,13 +18,13 @@ public class Motion2d : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, -RunSpeed, Time.deltaTime * VelocityChange);
+            currentSpeed = Mathf.Lerp(currentSpeed, -speed, Time.deltaTime * accellerationTime);
         } else if (Input.GetKey(KeyCode.D))
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, RunSpeed, Time.deltaTime * VelocityChange);
+            currentSpeed = Mathf.Lerp(currentSpeed, speed, Time.deltaTime * accellerationTime);
         } else
         {
-            currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * VelocityChange * 3);
+            currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * accellerationTime * 3);
         }
 
         transform.position += Vector3.right * Time.deltaTime * currentSpeed;

@@ -10,18 +10,23 @@ public class BasicJump : MonoBehaviour
     [SerializeField] private Motion2d motion2D;
     [SerializeField] private new Rigidbody2D rigidbody2D;
 
-    [Header("Configuration")]
-    [SerializeField] private float DropScale = 2;
-    [SerializeField] private float JumpHeight = 5;
-    [SerializeField] private int JumpNumber = 2;
-    [SerializeField] private int currentJump = 0;
-    [SerializeField] private bool isGrounded = true;
+    [Header("Gravity")]
+    [SerializeField] private float fallMultiplier = 2;
+    [SerializeField] private float transitionSpeed = 1;
+    private float currentScale = 1;
+    private float targetScale = 1;
 
+    [Header("Jump")]
+    [SerializeField] private float force = 5;
+    [SerializeField] private int count = 2;
+    private int currentJump = 0;
+
+
+    private bool isGrounded = true;
     public bool IsGrounded => isGrounded;
 
     public event Action OnLanding;
 
-    // Start is called before the first frame update
     void Start()
     {
         if (motion2D == null) motion2D = GetComponent<Motion2d>();
@@ -36,17 +41,22 @@ public class BasicJump : MonoBehaviour
         {
             if (!Input.GetKey(KeyCode.Space) || rigidbody2D.velocity.y < 0)
             {
-                rigidbody2D.gravityScale = DropScale;
+                targetScale = fallMultiplier;
             }
         } else
         {
-            rigidbody2D.gravityScale = 1;
+            targetScale = 1;
         }
 
         if (isGrounded)
         {
             currentJump = 0;
+            targetScale = 1;
+            currentScale = 1;
         }
+
+        currentScale = Mathf.Lerp(currentScale, targetScale, Time.deltaTime * transitionSpeed);
+        rigidbody2D.gravityScale = currentScale;
     }
 
     public void SetGrounding(bool grounding)
@@ -66,16 +76,16 @@ public class BasicJump : MonoBehaviour
 
     private void OnJump()
     {
-        if (currentJump < JumpNumber)
+        if (currentJump < count)
         {
-            float jumpScale = Mathf.Clamp((float)(JumpNumber - currentJump) / JumpNumber, 1 / JumpNumber, 1);
+            float jumpScale = Mathf.Clamp((float)(count - currentJump) / count, 1 / count, 1);
             
             rigidbody2D.gravityScale = 1;
             if (rigidbody2D.velocity.y < 0)
             {
                 rigidbody2D.velocity = rigidbody2D.velocity * new Vector2(1, 0);
             }
-            rigidbody2D.AddForce(Vector2.up * JumpHeight * jumpScale, ForceMode2D.Force);
+            rigidbody2D.AddForce(Vector2.up * force * jumpScale, ForceMode2D.Force);
 
             currentJump++;
             isGrounded = false;

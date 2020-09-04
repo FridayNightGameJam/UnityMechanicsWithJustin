@@ -517,7 +517,6 @@ GameObject:
   - component: {fileID: 706905442}
   - component: {fileID: 706905441}
   - component: {fileID: 706905440}
-  - component: {fileID: 706905443}
   m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
@@ -592,7 +591,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
@@ -617,19 +616,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &706905443
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 706905439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecc198995129d3e42838cfd3ead04211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LossText: {fileID: 1517274720}
 --- !u!1 &710698364
 GameObject:
   m_ObjectHideFlags: 0
@@ -863,11 +849,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   motion2D: {fileID: 0}
   rigidbody2D: {fileID: 0}
-  DropScale: 3
-  JumpHeight: 350
-  JumpNumber: 2
-  currentJump: 0
-  isGrounded: 1
+  fallMultiplier: 3
+  transitionSpeed: 1
+  force: 350
+  count: 2
 --- !u!114 &1234186719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -880,8 +865,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a9e4e46825870f4498be1bba9440773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunSpeed: 8
-  VelocityChange: 3
+  speed: 5
+  accellerationTime: 3
 --- !u!50 &1234186720
 Rigidbody2D:
   serializedVersion: 4

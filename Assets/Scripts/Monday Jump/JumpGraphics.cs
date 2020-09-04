@@ -11,10 +11,11 @@ public class JumpGraphics : MonoBehaviour
     [SerializeField] private Motion2d Motion2d;
     [SerializeField] private Transform Graphics;
 
-    [Header("Configuration")]
-    [SerializeField] private float SquishValue = .2f;
-    [SerializeField] private float SquishSpeed = 1;
-    [SerializeField] private float YScale = 1;
+    [Header("Squish")]
+    [SerializeField] private float amount = .2f;
+    [SerializeField] private float speed = 1;
+    
+    private float YScale = 1;
 
     private void Start()
     {
@@ -29,7 +30,7 @@ public class JumpGraphics : MonoBehaviour
     {
         if (Mathf.Abs(YScale - 1) > float.Epsilon)
         {
-            YScale = Mathf.Lerp(YScale, 1, Time.deltaTime * SquishSpeed);
+            YScale = Mathf.Lerp(YScale, 1, Time.deltaTime * speed);
         }
         Graphics.localPosition = new Vector3(0, (YScale - 1) / 2, 0);
         Graphics.localScale = new Vector3(1, YScale, 0);
@@ -39,12 +40,12 @@ public class JumpGraphics : MonoBehaviour
     {
         if (JumpComponent.IsGrounded)
         {
-            YScale = 1 + SquishValue;
+            YScale = 1 + amount;
         }
     }
 
     private void OnLanding()
     {
-        YScale = 1 - SquishValue;
+        YScale = 1 - amount;
     }
 }
