@@ -38,7 +38,7 @@ public class JumpGraphics : MonoBehaviour
 
     private void OnJump()
     {
-        if (JumpComponent.IsGrounded)
+        if (JumpComponent.CanJump)
         {
             YScale = 1 + amount;
         }

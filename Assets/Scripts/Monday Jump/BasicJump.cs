@@ -24,6 +24,7 @@ public class BasicJump : MonoBehaviour
 
     private bool isGrounded = true;
     public bool IsGrounded => isGrounded;
+    public bool CanJump => isGrounded || currentJump < count;
 
     public event Action OnLanding;
 
