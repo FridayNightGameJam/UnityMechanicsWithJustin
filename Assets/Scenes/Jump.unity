@@ -833,8 +833,8 @@ MonoBehaviour:
   JumpComponent: {fileID: 0}
   Motion2d: {fileID: 0}
   Graphics: {fileID: 170536513}
-  amount: 0.2
-  speed: 1
+  amount: 0.9
+  speed: 5
 --- !u!114 &1234186718
 MonoBehaviour:
   m_ObjectHideFlags: 0

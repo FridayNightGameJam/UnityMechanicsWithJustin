@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Motion2d : MonoBehaviour
 {
+    [Header("Components")]
+    [SerializeField] private Rigidbody2D Rigidbody2D;
+
     [Header("Configuration")]
     [SerializeField] private float speed = 5;
     [SerializeField] private float accellerationTime = 3;
@@ -12,6 +15,11 @@ public class Motion2d : MonoBehaviour
     public event Action OnJump;
 
     private float currentSpeed = 0;
+
+    private void Start()
+    {
+        Rigidbody2D = GetComponent<Rigidbody2D>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -27,7 +35,7 @@ public class Motion2d : MonoBehaviour
             currentSpeed = Mathf.Lerp(currentSpeed, 0, Time.deltaTime * accellerationTime * 3);
         }
 
-        transform.position += Vector3.right * Time.deltaTime * currentSpeed;
+        Rigidbody2D.velocity = new Vector2(currentSpeed, Rigidbody2D.velocity.y);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {

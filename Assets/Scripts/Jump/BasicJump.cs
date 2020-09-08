@@ -19,7 +19,7 @@ public class BasicJump : MonoBehaviour
     [Header("Jump")]
     [SerializeField] private float force = 5;
     [SerializeField] private int count = 2;
-    private int currentJump = 0;
+    [SerializeField] private int currentJump = 0;
 
 
     private bool isGrounded = true;
